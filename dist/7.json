@@ -1,0 +1,6 @@
+{
+  "map": "helmet_base_color.png",
+  "normalMap": "helmet_normal.png",
+  "roughnessMap": "helmet_roughness.png",
+  "metalnessMap": "helmet_metalness.png"
+}
