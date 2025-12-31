@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberPunk 2077</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="shortcut icon" href="public/logo.png" type="image/x-icon">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body{
+            width: 100%;
+            height: 100%;
+        }
+
+        body{
+            background: #000;
+        }
+
+        .nav-logo{
+            mix-blend-mode: screen;
+            opacity: 0.95;
+            filter: saturate(1.4) contrast(1.15) brightness(1.1);
+        }
+
+        .main-img{
+            mix-blend-mode: lighten;
+            opacity: 0.95;
+            -webkit-filter: saturate(1.4) contrast(1.15);
+            filter: saturate(1.4) contrast(1.15);
+            transition: filter 240ms ease, opacity 200ms ease;
+        }
+
+
+        .site-nav{
+            position: fixed;
+            top: 12px;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            pointer-events: none;
+            z-index: 9999;
+        }
+        .site-nav__inner{
+            pointer-events: auto;
+            display: flex;
+            gap: 12px;
+            background: rgba(6,6,6,0.45);
+            padding: 8px 14px;
+            border-radius: 999px;
+            backdrop-filter: blur(6px);
+            box-shadow: 0 6px 24px rgba(0,0,0,0.6);
+        }
+        .nav-link{
+            color: #e6e6e6;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 6px 10px;
+            border-radius: 6px;
+            transition: background 160ms ease, color 160ms ease, transform 160ms ease;
+        }
+
+        .nav-link:hover {
+            background: #000;
+            color: #fff;
+            transform: translateY(-2px);
+            text-shadow: 0 0 10px rgba(0, 150, 255, 0.8),
+                         0 0 20px rgba(0, 150, 255, 0.6),
+                         0 0 30px rgba(0, 150, 255, 0.4),
+                         0 0 40px rgba(0, 150, 255, 0.2);
+        }
+
+        .content-par {
+            perspective: 800px;
+            position: relative;
+        }
+
+        .co-img {
+            width: 350px;
+            height: 200px;
+            margin: 10px;
+        }
+
+        .content-img-1 {
+            position: relative;
+            left: 5%;
+        }
+
+        .content-img-2 {
+            position: relative;
+            left: 70%;
+        }
+
+        .content-img-3 {
+            position: relative;
+            left: 5%;
+        }
+
+        button a{
+            text-decoration: none;
+            color: #fff;
+            border-radius: 20px;
+            padding: 10px 20px;
+            background-color: rgba(46, 84, 252, 0.842);
+            position: relative;
+            left: 615%;
+            bottom: 10px;
+        }
+
+        .scroll-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            width: 2px;
+            height: 0;
+            background: linear-gradient(to bottom, 
+                transparent,
+                rgba(0, 150, 255, 0.8),
+                rgba(0, 150, 255, 1),
+                rgba(0, 150, 255, 0.8),
+                transparent
+            );
+            transform: translateX(-50%);
+            box-shadow: 0 0 10px rgba(0, 150, 255, 0.8),
+                        0 0 20px rgba(0, 150, 255, 0.5);
+            transition: height 0.1s linear;
+            z-index: 10;
+        }
+
+        .scroll-line::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 8px;
+            height: 8px;
+            background: rgba(0, 150, 255, 1);
+            border-radius: 50%;
+            box-shadow: 0 0 15px rgba(0, 150, 255, 1),
+                        0 0 30px rgba(0, 150, 255, 0.7);
+        }
+
+    </style>
+</head>
+<body>
+  <nav class="" aria-label="Main navigation">
+    <div class="">
+      
+    </div>
+  </nav>
+  <div class="main w-full">
+    <nav class="top-0 left-0 px-10 py-3 flex justify-between items-center site-nav">
+      <img class="w-[160px] nav-logo" src="cyberpunk-2077-logo.png" alt="">
+      <div class="flex gap-5 items-center site-nav__inner">
+        <a class="nav-link tracking-tight" href="#">Home</a>
+        <a class="nav-link tracking-tight" href="#games">Games</a>
+        <a class="nav-link tracking-tight" href="#leaderboard">Leaderboard</a>
+        <a class="nav-link tracking-tight" href="#community">Community</a>
+        <a class="nav-link tracking-tight" href="#contact">Contact</a>
+      </div>
+    </nav>
+    <div class="w-full h-[180vh] overflow-hidden">
+        <img class="absolute w-3/4 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 main-img" src="https://i.redd.it/3d-rendered-the-cyberpunk-logo-using-blender-v0-khopj82wqee91.png?width=1920&format=png&auto=webp&s=f42dbd8f5c04aedb9ba9291c1ba4d679029cc1f3" alt="">
+        <div class="w-[25rem] h-[25rem] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[-1] rounded-full bg-blue-800 blur-[90px]">
+        </div>
+        <canvas id="canvas"></canvas>
+      </div>
+  </div>
+  <div class="w-full h-screen bg-[#000] relative content-par">
+    <div class="scroll-line" id="scrollLine"></div>
+
+    <img class="co-img content-img-1" src="https://cdn.mos.cms.futurecdn.net/U9rDFQg5MzVcsqR5rfvDbk.jpg" alt="">
+
+    <img class="co-img content-img-2" src="https://images8.alphacoders.com/108/1083405.jpg" alt="">
+
+    <img class="co-img content-img-3" src="https://img.freepik.com/free-photo/illustration-rain-futuristic-city_23-2151406598.jpg?semt=ais_hybrid&w=740&q=80" alt="">
+
+
+    <button><a href="public/happy-new-year/new-year.html">Click Me</a></button>
+  </div>
+  
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.module.js"
+    }
+  }
+  </script>
+  <script type="module" src="main.js"></script>
+  
+  <script>
+    const scrollLine = document.getElementById('scrollLine');
+    const contentSection = document.querySelector('.content-par');
+    const targetBtn = document.querySelector('button');
+
+    window.addEventListener('scroll', () => {
+      const sectionRect = contentSection.getBoundingClientRect();
+      const sectionTop = contentSection.offsetTop;
+      const scrollPos = window.scrollY;
+      const windowHeight = window.innerHeight;
+      
+      // Check if section is in view
+      if (scrollPos + windowHeight > sectionTop) {
+        const scrollInSection = (scrollPos + windowHeight) - sectionTop;
+        const btnPosition = targetBtn.offsetTop + targetBtn.offsetHeight / 2;
+        
+        // Calculate line height
+        const maxHeight = btnPosition;
+        let lineHeight = Math.min(scrollInSection * 0.8, maxHeight);
+        
+        scrollLine.style.height = lineHeight + 'px';
+      } else {
+        scrollLine.style.height = '0px';
+      }
+    });
+  </script>
+</body>
+</html>
