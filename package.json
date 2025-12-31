@@ -2,9 +2,11 @@
   "name": "cyberpunk-2027",
   "private": true,
   "type": "module",
- "scripts": {
-  "build": "node node_modules/vite/bin/vite.js build"
-}
+  "scripts": {
+    "dev": "vite",
+    "build": "npx vite build",
+    "preview": "vite preview"
+  },
   "dependencies": {
     "three": "^0.182.0",
     "gsap": "^3.14.2",
